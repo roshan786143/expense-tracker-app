@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add your expenses</title>
+</head>
+<body>
+<form onsubmit="addExpense(event)" id="form">
+<label for="amount">Choose expense amount : </label>
+<input type="text" name="amount" id="amount" required>
+<label for="description">Choose description : </label>
+<input type="text" name="description" id="description" required>
+<label for="category">Choose a category : </label>
+<select name="category" id="category" required>
+    <option value="fuel">fuel</option>
+    <option value="Pizza">food</option>
+    <option value="Netflix">OTT</option>
+    <option value="goa">Trip</option>
+</select>
+<input type='submit' value="Add Expense">
+</form>
+<ul id="expenseList"></ul>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src='./expense.js'></script>
+</body>
+</html>
