@@ -5,7 +5,7 @@ const signUp = async (event) => {
   let password = document.getElementById('password');
   let form = document.getElementById('form');
 
-  const newUserSignup = document.createElement('h3');
+  const showNewUserSignupStatus = document.createElement('h3');
 
   //extracting the form field values
 
@@ -27,14 +27,14 @@ const signUp = async (event) => {
       signUpData
     );
 
-    newUserSignup.innerHTML = response.data;
-    form.appendChild(newUserSignup);
+    showNewUserSignupStatus.innerHTML = response.data;
+    form.appendChild(showNewUserSignupStatus);
 
     console.log('got the data from server');
     console.log(response.data);
   } catch (err) {
     console.log(err);
-    newUserSignup.innerHTML = err;
-    form.appendChild(newUserSignup);
+    showNewUserSignupStatus.innerHTML = err;
+    form.appendChild(showNewUserSignupStatus);
   }
 };
