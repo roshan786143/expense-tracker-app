@@ -7,16 +7,9 @@ const addExpense = (req,res)=>{
         description : description,
         category : category
     })
-    .then(()=>{
+    .then((record)=>{
         console.log('data updated successfully.')
-        expense.findAll()
-        .then(records=>{
-            let recordsData = records.map(everyRecord=>everyRecord);
-            console.log(recordsData);
-            res.send(recordsData);
-    })
-        .catch(err=>console.log(err))
-
+        res.send(record);
 })
     .catch(err=>{
         console.log(err)

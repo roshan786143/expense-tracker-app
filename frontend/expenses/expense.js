@@ -1,6 +1,3 @@
-window.onload = (event) => {
-  console.log('page refreshed.');
-};
 
 const addExpense = (event) => {
   event.preventDefault();
@@ -25,26 +22,41 @@ const addExpense = (event) => {
   // console.log(expenseData);
   axios
     .post('http://127.0.0.1:3000/expense/addexpense', expenseData)
-    .then((response) => {
-      console.log(response.data);
+    .then((record) => {
+      // console.log(response.data);
 
-      if(response.data.length > 0){
-        expenseItem.innerHTML = `${amount} - ${description} - ${category}`;
-        expenseList.appendChild(expenseItem);
-        expenseItem.appendChild(br);
-      }
-      
-    //   response.data.map((expense) => {
-    //     expenseItem.innerHTML = `${expense.id} - ${expense.amount} - ${expense.description} - ${expense.category}`;
-    //     // console.log(expenseItem);
-    //     expenseList.appendChild(expenseItem);
-    //     expenseItem.appendChild(br);
-    //     console.log(expenseList);
-    //   });
+      console.log('my new record is -->');
+      console.log(record.data);
+
+      const {id, amount, description, category} = record.data;
+
+      expenseItem.innerHTML = `${amount} - ${description} - ${category}`;
+
+      expenseList.appendChild(expenseItem);
+      expenseList.appendChild(br);
+
     })
     .catch((err) => console.log(err));
 };
 
 const fun = () => {
   console.log('just for fun.');
+};
+
+window.onload = (event) => {
+  console.log('page refreshed.');
+
+  let expenseList = document.getElementById('expenseList');
+
+  axios.get('http://127.0.0.1:3000/expense/getexpenses').
+  then(records=>{
+    console.log(records.data);
+    records.data.map(record=>{
+      let expenseItem = document.createElement('li');
+      expenseItem.innerHTML = `${record.id} - ${record.amount} - ${record.description} - ${record.category}`;
+      expenseList.appendChild(expenseItem);
+  })
+})
+  .catch(err=>console.log(err))
+
 };
