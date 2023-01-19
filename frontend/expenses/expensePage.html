@@ -7,6 +7,7 @@
     <title>Add your expenses</title>
 </head>
 <body>
+    <h2 style="color: darkmagenta;"><center>Add Your Expenses</center></h2>
 <form onsubmit="addExpense(event)" id="form">
 <label for="amount">Choose expense amount : </label>
 <input type="text" name="amount" id="amount" required>
@@ -21,7 +22,7 @@
 </select>
 <input type='submit' value="Add Expense">
 </form>
-<ul id="expenseList"></ul>
+<ol id="expenseList"></ol>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src='./expense.js'></script>
 </body>
