@@ -4,14 +4,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const router = require('./routes/route');
 require('dotenv').config();
+const sequelize = require('./util/database');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 4040;
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // handling forms
+
+app.use(express.json()); //handling json objects
 
 app.use(router);
 
-app.listen(PORT,()=>console.log(`hey your server has started on port ${PORT}`));
+app.listen(PORT,()=>console.log(`hey your server has started on port ${PORT}`.bgGreen));

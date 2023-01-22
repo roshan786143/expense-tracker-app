@@ -1,5 +1,6 @@
 const sequelize = require('../util/database');
 const Sequelize = require('sequelize');
+const expense = require('../models/expense');
 
 const userLoginDetails = sequelize.define('userLoginDetails',{
     id : {
@@ -26,5 +27,7 @@ const userLoginDetails = sequelize.define('userLoginDetails',{
 sequelize.sync()
 .then(()=>console.log('userLoginDetails table synced successfully --> (2)'.blue))
 .catch(err=>console.log('There\'s an error while syncing the userLoginDetails table'.red));
+
+userLoginDetails.hasMany(expense);
 
 module.exports = userLoginDetails;

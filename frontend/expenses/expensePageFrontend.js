@@ -1,3 +1,4 @@
+
 const addExpense = (event) => {
   event.preventDefault();
   let amount = document.getElementById('amount');
@@ -21,7 +22,6 @@ const addExpense = (event) => {
     category,
   };
 
-  // console.log(expenseData);
   axios
     .post('http://127.0.0.1:3000/expense/addexpense', expenseData)
     .then((record) => {
@@ -61,12 +61,21 @@ const addExpense = (event) => {
 window.onload = (event) => {
   console.log('page refreshed.');
 
+  getExpenses();
+
+};
+
+
+const getExpenses = () =>{
   let expenseList = document.getElementById('expenseList');
 
-  axios
-    .get('http://127.0.0.1:3000/expense/getexpenses')
+const token = localStorage.getItem("userToken");
+
+axios
+    .get('http://127.0.0.1:3000/expense/getexpenses',{headers : {'Authorization' : token}})
     .then((records) => {
       console.log(records.data);
+      
       records.data.map((record) => {
         let expenseItem = document.createElement('li');
         expenseItem.innerHTML = `${record.amount} - ${record.description} - ${
@@ -91,4 +100,4 @@ window.onload = (event) => {
       });
     })
     .catch((err) => console.log(err));
-};
+}

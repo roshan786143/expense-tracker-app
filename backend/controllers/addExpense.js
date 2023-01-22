@@ -2,6 +2,7 @@ const expense = require('../models/expense');
 
 const addExpense = (req,res)=>{
     const {amount,description,category} = req.body;
+
     expense.create({
         amount : amount,
         description : description,

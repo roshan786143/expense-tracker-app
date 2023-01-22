@@ -1,16 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const signUp = require('../controllers/signUp');
-const login = require('../controllers/login');
+const validateLoginCredentials = require('../controllers/validateLoginCredentials');
 const addExpense = require('../controllers/addExpense');
 const getExpenses = require('../controllers/getExpenses');
 const deleteExpense = require('../controllers/deleteExpense');
 
+const tokenValidation = require('../controllers/tokenValidation');
+
 router.post('/user/signup',signUp);
 
-router.post('/user/login',login);
+router.post('/user/login',validateLoginCredentials);
 
-router.get('/expense/getexpenses',getExpenses);
+// router.post('/expense/tokenValidation',tokenValidation);
+
+router.get('/expense/getexpenses',tokenValidation,getExpenses);
 
 router.delete('/expense/delete-expense/:id',deleteExpense);
 
