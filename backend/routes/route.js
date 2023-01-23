@@ -5,19 +5,16 @@ const validateLoginCredentials = require('../controllers/validateLoginCredential
 const addExpense = require('../controllers/addExpense');
 const getExpenses = require('../controllers/getExpenses');
 const deleteExpense = require('../controllers/deleteExpense');
-
 const tokenValidation = require('../controllers/tokenValidation');
 
 router.post('/user/signup',signUp);
 
 router.post('/user/login',validateLoginCredentials);
 
-// router.post('/expense/tokenValidation',tokenValidation);
-
 router.get('/expense/getexpenses',tokenValidation,getExpenses);
 
 router.delete('/expense/delete-expense/:id',deleteExpense);
 
-router.post('/expense/addexpense',addExpense);
+router.post('/expense/addexpense',tokenValidation,addExpense);
 
 module.exports = router;

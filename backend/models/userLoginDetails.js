@@ -24,10 +24,17 @@ const userLoginDetails = sequelize.define('userLoginDetails',{
     }
 })
 
-sequelize.sync()
-.then(()=>console.log('userLoginDetails table synced successfully --> (2)'.blue))
-.catch(err=>console.log('There\'s an error while syncing the userLoginDetails table'.red));
-
 userLoginDetails.hasMany(expense);
+expense.belongsTo(userLoginDetails);
+
+sequelize.sync({force : false})
+.then((res)=>{
+    console.log('userLoginDetails table synced successfully --> (2)'.blue)
+    console.log(res);
+})
+.catch(err=>{
+    console.log('There\'s an error while syncing the userLoginDetails table'.red)
+    console.log(err);
+});
 
 module.exports = userLoginDetails;

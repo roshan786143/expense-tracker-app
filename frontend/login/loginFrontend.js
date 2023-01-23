@@ -38,7 +38,7 @@ const postingUserLoginCredentials = async(loginDetails) =>{
     }
 
     if(response.data == 'notAValidUser'){
-      showUserLoginStatus.innerHTML = `User with the email (${email}) not found, Pls.create an account`;
+      showUserLoginStatus.innerHTML = `User with the email (${loginDetails.email}) not found, Pls.create an account`;
       form.appendChild(showUserLoginStatus);
       return
     }

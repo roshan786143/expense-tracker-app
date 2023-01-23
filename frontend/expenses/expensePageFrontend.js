@@ -22,10 +22,11 @@ const addExpense = (event) => {
     category,
   };
 
+  const userToken = localStorage.getItem('userToken');
+
   axios
-    .post('http://127.0.0.1:3000/expense/addexpense', expenseData)
+    .post('http://127.0.0.1:3000/expense/addexpense', expenseData, {headers : {'Authorization' : userToken}})
     .then((record) => {
-      // console.log(response.data);
 
       console.log('my new record is -->');
       console.log(record.data);
@@ -41,12 +42,10 @@ const addExpense = (event) => {
 
       delBtn.addEventListener('click', (event) => {
         console.log('The requested id is', id);
-        // console.log(`http://127.0.0.1:3000/expense/delete-expense/${id}`);
 
         axios
           .delete(`http://127.0.0.1:3000/expense/delete-expense/${id}`)
           .then((response) => {
-            // console.log('your selected expense deleted successfully.');
 
             expenseList.removeChild(expenseItem);
 
@@ -71,8 +70,7 @@ const getExpenses = () =>{
 
 const token = localStorage.getItem("userToken");
 
-axios
-    .get('http://127.0.0.1:3000/expense/getexpenses',{headers : {'Authorization' : token}})
+axios.get('http://127.0.0.1:3000/expense/getexpenses',{headers : {'Authorization' : token}})
     .then((records) => {
       console.log(records.data);
       
@@ -99,5 +97,8 @@ axios
         });
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+    console.log('There\'s an error while geting the expenses');
+    console.log(err)
+    });
 }

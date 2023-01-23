@@ -1,15 +1,16 @@
 const colors = require('colors');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const tokenValidation = (req,res) =>{
+const tokenValidation = (req,res,next) =>{
+const token = req.header('Authorization');
 
-    const token = req.header('Authorization');
-    
-    console.log('--------------------------'.bgRed);
-    console.log(token);
-    
-    
-    res.json(token);
-    // next();
+const userObj = jwt.verify(token,process.env.SECRET);
+
+req.userId = userObj.id;
+
+next();
+
 }
 
 

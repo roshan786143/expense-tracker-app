@@ -2,6 +2,7 @@ const userLoginDetails = require('../models/userLoginDetails');
 const colors = require('colors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const validateLoginCredentials = (req, res) => {
   const { email, password } = req.body;
@@ -31,9 +32,7 @@ const validateLoginCredentials = (req, res) => {
               email
             }
 
-         let secretKey = require('crypto').randomBytes(64).toString('hex');
-
-           const jwtToken = jwt.sign(jwtPayload,secretKey);
+           const jwtToken = jwt.sign(jwtPayload,process.env.SECRET);
            
             res.json({token : jwtToken, loginStatus : 'success'});
           } else {
