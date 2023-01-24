@@ -17,7 +17,15 @@ const getExpenses = (req, res) => {
         }
     })
     .then(expenses=>{
-        res.json(expenses)
+        // res.json(expenses)
+        userLoginDetails.findOne({
+            where : {
+                id : userid
+            }
+        })
+        .then(record=>{
+            res.json({expenses,userStatus : record.isPremiumUser})
+        }).catch(err=>console.log('There\'s an error while fetching the record.'))
     })
     .catch(err=>{
 

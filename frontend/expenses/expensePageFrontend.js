@@ -75,7 +75,18 @@ const getExpenses = () => {
     .then((records) => {
       console.log(records.data);
 
-      records.data.map((record) => {
+      console.log('User status --->',records.data.userStatus);
+      console.log('Expenses --->',records.data.expenses);
+
+      const {expenses, userStatus} = records.data;
+
+      const purchaseBtn = document.getElementById('purchaseBtn');
+
+      if(userStatus === true){
+        purchaseBtn.style.display = "none";
+      }
+
+      expenses.map((record) => {
         let expenseItem = document.createElement('li');
         expenseItem.innerHTML = `${record.amount} - ${record.description} - ${
           record.category
@@ -119,11 +130,11 @@ const buyPremiumMembership = (event) => {
         key: response.data.key_id,
         order_id: response.data.order.id,
 
-        handler: (response) => {
+        handler: async(response) => {
 
           // console.log(response);
 
-          axios.post('http://127.0.0.1:3000/purchase/updatePremiumStatus',response,{headers : {'Authorization' : userToken}})
+         await axios.post('http://127.0.0.1:3000/purchase/updatePremiumStatus',response,{headers : {'Authorization' : userToken}})
           .then(response=>{
             console.log(response)
             alert('Payment Successful');

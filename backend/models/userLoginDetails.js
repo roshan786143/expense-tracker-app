@@ -34,7 +34,7 @@ expense.belongsTo(userLoginDetails);
 userLoginDetails.hasMany(orders);
 orders.belongsTo(userLoginDetails);
 
-sequelize.sync({force : true})
+sequelize.sync({force : false})
 .then((res)=>{
     console.log('userLoginDetails table synced successfully --> (2)'.blue)
     console.log(res);
