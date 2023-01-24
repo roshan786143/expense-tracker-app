@@ -8,7 +8,12 @@ const sequelize = require('./util/database');
 
 const PORT = process.env.PORT || 4040;
 
-app.use(cors());
+// app.use(cors());
+
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json()); // handling forms

@@ -23,7 +23,7 @@ const expense = sequelize.define('expense',{
     }
 })
 
-sequelize.sync()
+sequelize.sync({force : false})
 .then(()=>console.log('expense table synced successfully --> (3)'.yellow))
 .catch(err=>console.log(err))
 

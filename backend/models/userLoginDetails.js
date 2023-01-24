@@ -1,6 +1,7 @@
 const sequelize = require('../util/database');
 const Sequelize = require('sequelize');
 const expense = require('../models/expense');
+const orders = require('./orders');
 
 const userLoginDetails = sequelize.define('userLoginDetails',{
     id : {
@@ -26,6 +27,9 @@ const userLoginDetails = sequelize.define('userLoginDetails',{
 
 userLoginDetails.hasMany(expense);
 expense.belongsTo(userLoginDetails);
+
+userLoginDetails.hasMany(orders);
+orders.belongsTo(userLoginDetails);
 
 sequelize.sync({force : false})
 .then((res)=>{

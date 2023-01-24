@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 
 const addExpense = (event) => {
   event.preventDefault();
@@ -25,9 +26,10 @@ const addExpense = (event) => {
   const userToken = localStorage.getItem('userToken');
 
   axios
-    .post('http://127.0.0.1:3000/expense/addexpense', expenseData, {headers : {'Authorization' : userToken}})
+    .post('http://127.0.0.1:3000/expense/addexpense', expenseData, {
+      headers: { Authorization: userToken },
+    })
     .then((record) => {
-
       console.log('my new record is -->');
       console.log(record.data);
 
@@ -46,7 +48,6 @@ const addExpense = (event) => {
         axios
           .delete(`http://127.0.0.1:3000/expense/delete-expense/${id}`)
           .then((response) => {
-
             expenseList.removeChild(expenseItem);
 
             console.log(response);
@@ -61,19 +62,20 @@ window.onload = (event) => {
   console.log('page refreshed.');
 
   getExpenses();
-
 };
 
-
-const getExpenses = () =>{
+const getExpenses = () => {
   let expenseList = document.getElementById('expenseList');
 
-const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem('userToken');
 
-axios.get('http://127.0.0.1:3000/expense/getexpenses',{headers : {'Authorization' : token}})
+  axios
+    .get('http://127.0.0.1:3000/expense/getexpenses', {
+      headers: { Authorization: token },
+    })
     .then((records) => {
       console.log(records.data);
-      
+
       records.data.map((record) => {
         let expenseItem = document.createElement('li');
         expenseItem.innerHTML = `${record.amount} - ${record.description} - ${
@@ -98,7 +100,50 @@ axios.get('http://127.0.0.1:3000/expense/getexpenses',{headers : {'Authorization
       });
     })
     .catch((err) => {
-    console.log('There\'s an error while geting the expenses');
-    console.log(err)
+      console.log("There's an error while geting the expenses");
+      console.log(err);
     });
-}
+};
+
+const buyPremiumMembership = (event) => {
+  event.preventDefault();
+
+  const userToken = localStorage.getItem('userToken');
+
+  axios
+    .get('http://127.0.0.1:3000/purchase/premiumMembership', {
+      headers: { Authorization: userToken },
+    })
+    .then((response) => {
+      console.log(response);
+      const options = {
+        key: response.data.key_id,
+        order_id: response.data.order.id,
+
+        handler: async (response) => {
+          // alert(response.pay);
+          alert('Payment Successful');
+
+          // axios.post('http:')
+
+
+
+
+
+
+
+
+        },
+      };
+
+      const rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed',(response)=>{
+        alert('This step of Payment Failed');
+      });
+      rzp1.open();
+    })
+    .catch((err) => {
+      console.log('Something went wrong');
+      console.log(err);
+    });
+};

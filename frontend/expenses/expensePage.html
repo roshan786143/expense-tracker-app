@@ -22,8 +22,11 @@
 </select>
 <input type='submit' value="Add Expense">
 </form>
+<button onclick="buyPremiumMembership(event)">buy premium membership</button>
+<br>
 <ol id="expenseList"></ol>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src='./expensePageFrontend.js'></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>
