@@ -21,6 +21,6 @@ router.post('/expense/addexpense',tokenValidation,addExpense);
 
 router.get('/purchase/premiumMembership',tokenValidation,premiumMembership);
 
-router.post('/purchase/updateTransactionStatus',tokenValidation,updatePremiumStatus);
+router.post('/purchase/updatePremiumStatus',tokenValidation,updatePremiumStatus);
 
 module.exports = router;

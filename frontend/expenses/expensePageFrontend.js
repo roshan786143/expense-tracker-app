@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 
 const addExpense = (event) => {
   event.preventDefault();
@@ -112,7 +111,7 @@ const buyPremiumMembership = (event) => {
 
   axios
     .get('http://127.0.0.1:3000/purchase/premiumMembership', {
-      headers: { Authorization: userToken },
+      headers: { 'Authorization': userToken },
     })
     .then((response) => {
       console.log(response);
@@ -120,18 +119,19 @@ const buyPremiumMembership = (event) => {
         key: response.data.key_id,
         order_id: response.data.order.id,
 
-        handler: async (response) => {
-          // alert(response.pay);
-          alert('Payment Successful');
+        handler: (response) => {
 
-          // axios.post('http:')
+          // console.log(response);
 
-
-
-
-
-
-
+          axios.post('http://127.0.0.1:3000/purchase/updatePremiumStatus',response,{headers : {'Authorization' : userToken}})
+          .then(response=>{
+            console.log(response)
+            alert('Payment Successful');
+          })
+          .catch(err=>{
+            console.log('There\'s an error while updating the premium status.');
+            console.log(err);
+          })
 
         },
       };
@@ -139,6 +139,7 @@ const buyPremiumMembership = (event) => {
       const rzp1 = new Razorpay(options);
       rzp1.on('payment.failed',(response)=>{
         alert('This step of Payment Failed');
+        console.log(response);
       });
       rzp1.open();
     })

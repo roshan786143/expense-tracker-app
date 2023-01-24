@@ -22,6 +22,9 @@ const userLoginDetails = sequelize.define('userLoginDetails',{
     password : {
         type : Sequelize.STRING,
         allowNull : false
+    },
+    isPremiumUser : {
+        type : Sequelize.BOOLEAN
     }
 })
 
@@ -31,7 +34,7 @@ expense.belongsTo(userLoginDetails);
 userLoginDetails.hasMany(orders);
 orders.belongsTo(userLoginDetails);
 
-sequelize.sync({force : false})
+sequelize.sync({force : true})
 .then((res)=>{
     console.log('userLoginDetails table synced successfully --> (2)'.blue)
     console.log(res);
