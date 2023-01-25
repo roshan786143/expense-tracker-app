@@ -12,7 +12,7 @@ const leaderboardUsers = (req,res) =>{
         userNames = records.map(record=>record.dataValues.username);
         userids = records.map(record=>record.dataValues.id);
         console.log(userids);
-        // console.log(userNames);
+        console.log(userNames);
 
         for(let i = 0;i < userids.length;i++){
 
@@ -22,9 +22,9 @@ const leaderboardUsers = (req,res) =>{
             }
         })
         .then(records=>{
-            // console.log(records);
+            console.log(records);
             const amounts = records.map(record => record.dataValues.amount);
-            // console.log(amounts);
+            console.log(amounts);
 
             const totalUserExpenseAmount = amounts.reduce((accum,curr)=>accum + curr);
 

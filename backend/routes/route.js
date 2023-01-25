@@ -9,6 +9,7 @@ const tokenValidation = require('../controllers/tokenValidation');
 const premiumMembership = require('../controllers/premiumMembership');
 const updatePremiumStatus = require('../controllers/UpdatePremiumStatus');
 const leaderboardUsers = require('../controllers/leaderboardUsers');
+const resetPssword = require('../controllers/resetPassword');
 
 router.post('/user/signup',signUp);
 
@@ -25,5 +26,7 @@ router.get('/purchase/premiumMembership',tokenValidation,premiumMembership);
 router.post('/purchase/updatePremiumStatus',tokenValidation,updatePremiumStatus);
 
 router.get('/user/leaderboardUsers',tokenValidation,leaderboardUsers);
+
+router.post('/user/forgotPassword',resetPssword);
 
 module.exports = router;

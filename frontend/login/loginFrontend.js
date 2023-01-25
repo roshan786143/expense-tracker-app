@@ -71,3 +71,8 @@ const postingUserLoginCredentials = async(loginDetails) =>{
 
 }
 }
+
+const forgotPassword = (event) =>{
+  // console.log('i forgot my password what i do now.');
+  window.location.href = "./forgotPassword.html";
+}
