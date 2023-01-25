@@ -1,5 +1,5 @@
 
-    const addExpense = (expenseData,expenseList,expenseItem,br,delBtn) =>{
+  const addExpense = (expenseData,expenseList,expenseItem,br,delBtn) =>{
   
     const userToken = localStorage.getItem('userToken');
   
@@ -38,6 +38,8 @@
   
   const getExpenses = () => {
     let expenseList = document.getElementById('expenseList');
+
+    let userRecords;
   
     const token = localStorage.getItem('userToken');
   
@@ -47,6 +49,8 @@
       })
       .then((records) => {
         console.log(records.data);
+
+        userRecords = records;
   
         console.log('User status --->',records.data.userStatus);
         console.log('Expenses --->',records.data.expenses);
@@ -85,10 +89,14 @@
         const showLeaderBoardButton = document.createElement('button');
         const expense = document.createElement('h2');
         const premiumUserTag = document.createElement('h4');
+        const dailyExpenses = document.createElement('h4');
+        const containerForDownload = document.createElement('div');
   
         if(userStatus === true){
           purchaseBtn.style.display = "none";
           br.style.display = "none";
+          dailyExpenses.innerHTML = 'Daily Expenses';
+          dailyExpenses.style.color = 'brown';
   
           expense.innerHTML = 'Expense';
           expense.style.color = 'hotpink';
@@ -96,6 +104,7 @@
           premiumUserTag.style.color = 'green';
           showLeaderBoardButton.innerHTML = 'show leaderboard';
           premiumUserTag.append(showLeaderBoardButton);
+
         //   premiumUserTag.appendChild(expense);
           form.appendChild(premiumUserTag);
 
@@ -105,7 +114,17 @@
 
           div.appendChild(expense);
 
+          div.appendChild(dailyExpenses);
+
           div.appendChild(expenseList);
+
+          div.appendChild(containerForDownload);
+
+          containerForDownload.style.marginTop = '2rem';
+
+          // containerForDownload.appendChild(download);
+
+          console.log(userRecords.data.expenses[0]);
   
           userExpenses(expenses);
 
@@ -119,6 +138,19 @@
 
           div1.appendChild(leaderBoardHeading);
 
+          const download = document.createElement('button');
+
+          download.innerHTML = 'download';
+
+          containerForDownload.appendChild(download);
+
+          div1.style.display = 'none';
+
+          showLeaderBoardButton.addEventListener('click',()=>{
+            div1.style.display = '';
+            containerForDownload.style.display = 'none';
+          })
+
 
           const userToken = localStorage.getItem('userToken');
 
@@ -129,7 +161,7 @@
           axios.get('http://127.0.0.1:3000/user/leaderboardUsers',{headers : {'Authorization' : userToken}})
           .then(userObjs=>{
             console.log(userObjs)
-            const ul = document.createElement('ul');
+            const ul = document.createElement('ol');
             div1.appendChild(ul);
 
             userObjs.data.sort((a,b)=>b.expenseAmount - a.expenseAmount);
@@ -252,4 +284,4 @@ window.onload = (event) => {
     console.log('page refreshed.');
   
     getExpenses();
-  };
+};
