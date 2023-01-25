@@ -1,5 +1,8 @@
 const sgMail = require('@sendgrid/mail')
 require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
+const forgetPasswords = require('../models/forgetPasswords');
+const userLoginDetails = require('../models/userLoginDetails');
 
 const resetPssword = (req,res) =>{
     const userEmail = req.body;
@@ -17,9 +20,42 @@ const msg = {
 sgMail
   .send(msg)
   .then(() => {
-    console.log('Email sent')
-    console.log(userEmail);
-    res.json('Email sent successfully')
+
+    console.log('the email ----------->'.bgRed);
+    console.log(userEmail.email);
+    // console.log('Email sent')
+    // console.log(userEmail);
+    // res.json()
+
+    userLoginDetails.findAll({
+      where : {
+        email : userEmail.email
+      }
+    })
+    .then(record=>{
+      console.log(record[0].dataValues.id);
+
+      const userId = record[0].dataValues.id;
+
+      const uId = uuidv4();
+
+      forgetPasswords.create({
+        passwordId : uId,
+        userId : userId,
+        isActive : false,
+        userLoginDetailId : userId
+      }).then(()=>{
+        console.log('Successfully sent the password reset link.');
+        res.json(uId);
+      }).catch(err=>{
+        console.log('There\'s an error while sending reset password link');
+        console.log(err);
+      })
+      // res.json(record);
+    })
+
+
+
   })
   .catch((error) => {
     console.error(error)
