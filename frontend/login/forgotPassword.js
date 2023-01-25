@@ -5,9 +5,9 @@ const forgotPassword = (event) =>{
 
     email = email.value;
 
-    console.log(email);
+    // console.log(email);
 
-    axios.post('http://127.0.0.1:3000/user/forgotPassword',email)
+    axios.post('http://127.0.0.1:3000/user/forgotPassword',{email})
     .then(response=>{
         console.log(response);
     })
