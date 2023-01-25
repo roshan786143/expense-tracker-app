@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href='./styles.css'> -->
     <title>Add your expenses</title>
 </head>
 <body>
     <h2 style="color: darkmagenta;"><center>Add Your Expenses</center></h2>
-<form onsubmit="addExpense(event)" id="form">
+<form onsubmit="expense(event)" id="form">
 <label for="amount">Choose expense amount : </label>
 <input type="text" name="amount" id="amount" required>
 <label for="description">Choose description : </label>
@@ -23,10 +24,10 @@
 <input type='submit' value="Add Expense">
 </form>
 <button id="purchaseBtn" onclick="buyPremiumMembership(event)">buy premium membership</button>
-<br>
+<br id="br">
 <ol id="expenseList"></ol>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src='./expensePageFrontend.js'></script>
+<script src='./expense.js'></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>

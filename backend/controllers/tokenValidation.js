@@ -5,8 +5,10 @@ require('dotenv').config();
 const tokenValidation = (req,res,next) =>{
 const token = req.header('Authorization');
 
-const userObj = jwt.verify(token,process.env.SECRET);
+// res.send('oh no');
 
+const userObj = jwt.verify(token,process.env.SECRET);
+    
 req.userId = userObj.id;
 
 next();

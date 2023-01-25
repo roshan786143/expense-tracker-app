@@ -81,9 +81,27 @@ const getExpenses = () => {
       const {expenses, userStatus} = records.data;
 
       const purchaseBtn = document.getElementById('purchaseBtn');
+      const br = document.getElementById('br');
+      const form = document.getElementById('form');
+      const showLeaderBoardButton = document.createElement('button');
+      const expense = document.createElement('h2');
+      const premiumUserTag = document.createElement('h4');
 
       if(userStatus === true){
         purchaseBtn.style.display = "none";
+        br.style.display = "none";
+
+        expense.innerHTML = 'Expense';
+        expense.style.color = 'hotpink';
+        premiumUserTag.innerHTML = `You are a Premium User Now.${" "}`;
+        premiumUserTag.style.color = 'green';
+        showLeaderBoardButton.innerHTML = 'show leaderboard';
+        premiumUserTag.append(showLeaderBoardButton);
+        premiumUserTag.appendChild(expense);
+        form.appendChild(premiumUserTag);
+
+        // leaderBoardFunc();
+
       }
 
       expenses.map((record) => {
@@ -108,6 +126,17 @@ const getExpenses = () => {
             .catch((err) => console.log(err));
         });
       });
+
+      const leaderBoardFunc = () =>{
+        const leaderBoardHeading = document.createElement('h2');
+        leaderBoardHeading.innerHTML = 'leader board';
+        expenseList.appendChild(leaderBoardHeading);
+      }
+
+
+
+
+
     })
     .catch((err) => {
       console.log("There's an error while geting the expenses");
@@ -133,11 +162,11 @@ const buyPremiumMembership = (event) => {
         handler: async(response) => {
 
           // console.log(response);
+          alert('Payment Successful');
 
          await axios.post('http://127.0.0.1:3000/purchase/updatePremiumStatus',response,{headers : {'Authorization' : userToken}})
           .then(response=>{
             console.log(response)
-            alert('Payment Successful');
           })
           .catch(err=>{
             console.log('There\'s an error while updating the premium status.');
