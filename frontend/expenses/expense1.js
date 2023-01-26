@@ -37,14 +37,14 @@
   }
   
   const getExpenses = () => {
-    let userRecords;let count = 0;
+    let userRecords;
 
     let expenseList = document.getElementById('expenseList');
 
     const token = localStorage.getItem('userToken');
   
     axios
-      .get(`http://127.0.0.1:3000/expense/getexpenses/${count}`, {
+      .get(`http://127.0.0.1:3000/expense/getexpenses/`, {
         headers: { Authorization: token },
       })
       .then((records) => {
@@ -59,6 +59,7 @@
         let {expenses, userStatus} = records.data;
 
         const userExpenses = ()=>{
+
             console.log('My records are --------------->>>');
             console.log(records);
             expenses.map((record) => {
@@ -130,27 +131,32 @@
 
           const next = document.createElement('button');
           const last = document.createElement('button');
+          const noOfExpenses = document.createElement('button');
 
           next.innerHTML = 'next';
           last.innerHTML = 'last';
+          noOfExpenses.innerHTML = 'Click here to to see your expenses page by page';
           
           last.style.position = "relative";
           last.style.right = "-2rem";
+          noOfExpenses.style.position = "relative";
+          noOfExpenses.style.right = "-4rem";
           
-          containerForPaginatingExpenses.appendChild(next);
-          containerForPaginatingExpenses.appendChild(last);
+          // containerForPaginatingExpenses.appendChild(next);
+          // containerForPaginatingExpenses.appendChild(last);
+          containerForPaginatingExpenses.appendChild(noOfExpenses);
 
-          next.addEventListener('click',()=>{
-            count +=5;
-            console.log(count);
+          // next.addEventListener('click',()=>{
+            // count +=5;
+            // console.log(count);
 
-            // expenseList.style.display = 'none';
+          //   userExpenses();
 
-            div.removeChild(expenseList);
+          // });
 
-            userExpenses();
-
-          });
+          noOfExpenses.addEventListener('click',()=>{
+            window.location.href = './pageByPageExpenses.html';
+          })
 
           console.log(userRecords.data.expenses[0]);
   

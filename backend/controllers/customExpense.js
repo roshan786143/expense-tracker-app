@@ -1,27 +1,19 @@
 const expense = require('../models/expense');
 const userLoginDetails = require('../models/userLoginDetails');
-const sequelize = require('../util/database');
-const tokenValidation = require('./tokenValidation');
-
-const getExpenses = (req, res) => {
-
+const customExpense = (req,res)=>{
     const userid = req.userId;
 
-    // const page = req.params.pageNumber;
-    // console.log('pageNumber -------------------------->>>>'.bgGreen);
-    // let pageNumber = parseInt(page);
-    // console.log('The page number ---->>>'.bgBlue);
-    // console.log(pageNumber);
+    const expenseNum = req.params.num;
 
-    console.log('----------------------->>>user'.bgCyan);
-    console.log(userid);
+    // console.log(expenseNum);
 
+    const customExpenseNum = parseInt(expenseNum);
 
     expense.findAll({
         where : {
             userLoginDetailId : userid,
         },
-        // limit : pageNumber,
+        limit : customExpenseNum,
         // offset : 1
     })
     .then(expenses=>{
@@ -48,4 +40,4 @@ const getExpenses = (req, res) => {
     })
 };
 
-module.exports = getExpenses;
+module.exports = customExpense;
