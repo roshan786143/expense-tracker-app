@@ -8,7 +8,7 @@ const premiumMembership = (req, res) => {
   const userId = req.userId;
 
   console.log(
-    '---------------------------------------------->>>>>>>>>>>>'.bgBlue
+    '---------------------------------------------->>>>>>>>>>>>'.bgGreen
   );
   console.log(userId);
 
@@ -17,19 +17,18 @@ const premiumMembership = (req, res) => {
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
-  var options = {
+  const options = {
     "amount": "2500", // amount in the smallest currency unit
     "currency": 'INR',
     "receipt": 'order_rcptid_12',
   };
   instance.orders.create(options, (err, order) => {
+    if(err){
+      console.log(err);
+      res.json('There\'s an error while creating the order')
+    }
     console.log(order);
     console.log('-----------------------> orders'.bgGreen);
-
-    if(err){
-      console.log('There\'s an error while creating the order'.bgRed);
-      return res.json(err);
-    }
 
     orders
       .create({

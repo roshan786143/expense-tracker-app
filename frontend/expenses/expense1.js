@@ -37,49 +37,11 @@
   }
   
   const getExpenses = () => {
+    let userRecords;let count = 0;
+
     let expenseList = document.getElementById('expenseList');
 
-    let userRecords;
-  
     const token = localStorage.getItem('userToken');
-
-    // const next = document.createElement('button');
-    // const last = document.createElement('button');
-
-    let count = 0;
-    // next.addEventListener('click',()=>{
-    //   count +=5;
-    //   console.log(count);
-
-    //   axios
-    //   .get(`http://127.0.0.1:3000/expense/getexpenses/${count}`, {
-    //     headers: { Authorization: token },
-    //   })
-    //   .then(records=>{
-       
-    //     expenseList.style.display = 'none';
-
-    //     const ol = document.createElement('ol');
-    //     const li = document.createElement('li');
-    //     li.innerHTML = 'cool';
-    //     form.appendChild(ol);
-    //     ol.appendChild(li);
-
-
-        
-    //   })
-    //   .catch(err=>{
-    //     console.log('There\'s an error while getting the expenses from the server');
-    //     console.log(err);
-    //   })
-    // })
-
-
-    // next.innerHTML = 'next';
-    // last.innerHTML = 'last';
-        
-    // last.style.position = "relative";
-    // last.style.right = "-2rem";
   
     axios
       .get(`http://127.0.0.1:3000/expense/getexpenses/${count}`, {
@@ -97,6 +59,8 @@
         let {expenses, userStatus} = records.data;
 
         const userExpenses = ()=>{
+            console.log('My records are --------------->>>');
+            console.log(records);
             expenses.map((record) => {
                 let expenseItem = document.createElement('li');
                 expenseItem.innerHTML = `${record.amount} - ${record.description} - ${
@@ -164,7 +128,29 @@
 
           containerForPaginatingExpenses.style.marginTop = '2rem';
 
-          // containerForPaginatingExpenses.appendChild(next);
+          const next = document.createElement('button');
+          const last = document.createElement('button');
+
+          next.innerHTML = 'next';
+          last.innerHTML = 'last';
+          
+          last.style.position = "relative";
+          last.style.right = "-2rem";
+          
+          containerForPaginatingExpenses.appendChild(next);
+          containerForPaginatingExpenses.appendChild(last);
+
+          next.addEventListener('click',()=>{
+            count +=5;
+            console.log(count);
+
+            // expenseList.style.display = 'none';
+
+            div.removeChild(expenseList);
+
+            userExpenses();
+
+          });
 
           console.log(userRecords.data.expenses[0]);
   
@@ -180,25 +166,12 @@
 
           div1.appendChild(leaderBoardHeading);
 
-          // const next = document.createElement('button');
-          // const last = document.createElement('button');
-
-          // next.innerHTML = 'next';
-          // last.innerHTML = 'last';
-        
-          // last.style.position = "relative";
-          // last.style.right = "-2rem";
-
-          // containerForPaginatingExpenses.appendChild(next);
-          // containerForPaginatingExpenses.appendChild(last);
-
           div1.style.display = 'none';
 
           showLeaderBoardButton.addEventListener('click',()=>{
             div1.style.display = '';
             containerForPaginatingExpenses.style.display = 'none';
           })
-
 
           const userToken = localStorage.getItem('userToken');
 
@@ -230,19 +203,6 @@
 
           gettingUsers();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         }else{
             userExpenses(expenses);
         }
@@ -254,7 +214,7 @@
       });
   };
   
-  const buyPremiumMembership = (event) => {
+const buyPremiumMembership = (event) => {
     event.preventDefault();
   
     const userToken = localStorage.getItem('userToken');
@@ -300,7 +260,7 @@
   };
   
 
-  const expense = (event) => {
+const expense = (event) => {
     event.preventDefault();
     let amount = document.getElementById('amount');
     let description = document.getElementById('description');

@@ -7,23 +7,32 @@ const getExpenses = (req, res) => {
 
     const userid = req.userId;
 
+    const page = req.params.pageNumber;
+    console.log('pageNumber -------------------------->>>>'.bgGreen);
+    let pageNumber = parseInt(page);
+    console.log(pageNumber+1);
+
     console.log('----------------------->>>user'.bgCyan);
     console.log(userid);
 
 
     expense.findAll({
         where : {
-            userLoginDetailId : userid
-        }
+            userLoginDetailId : userid,
+        },
+        limit : 5,
+        offset : pageNumber
     })
     .then(expenses=>{
-        // res.json(expenses)
+        // for finding the status of premium user
         userLoginDetails.findOne({
             where : {
                 id : userid
             }
         })
         .then(record=>{
+            console.log('The records that corresponds to page number are ---->'.bgGreen);
+            // console.log(record);
             res.json({expenses,userStatus : record.isPremiumUser})
         }).catch(err=>console.log('There\'s an error while fetching the record.'))
     })

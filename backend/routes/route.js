@@ -16,7 +16,7 @@ router.post('/user/signup',signUp);
 
 router.post('/user/login',validateLoginCredentials);
 
-router.get('/expense/getexpenses',tokenValidation,getExpenses);
+router.get('/expense/getexpenses/:pageNumber',tokenValidation,getExpenses);
 
 router.delete('/expense/delete-expense/:id',deleteExpense);
 
