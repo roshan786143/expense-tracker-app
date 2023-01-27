@@ -177,6 +177,7 @@
           showLeaderBoardButton.addEventListener('click',()=>{
             div1.style.display = '';
             containerForPaginatingExpenses.style.display = 'none';
+            gettingUsers();
           })
 
           const userToken = localStorage.getItem('userToken');
@@ -207,7 +208,7 @@
 
           }
 
-          gettingUsers();
+          // gettingUsers();
 
         }else{
             userExpenses(expenses);

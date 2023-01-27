@@ -30,7 +30,24 @@ const userUpdatedPassword = (event) =>{
 
         msg.innerHTML = 'hurray,password changed successfully :)';
 
+        const loginBtn = document.createElement('button');
+
+        loginBtn.innerHTML = 'login now';
+
+        loginBtn.style.marginTop = '4rem';
+        loginBtn.style.marginLeft = '1.5rem';
+
+        loginBtn.style.padding = '0.5rem';
+
+        loginBtn.style.borderRadius = '1rem';
+
         body.appendChild(msg);
+
+        body.appendChild(loginBtn);
+
+        loginBtn.addEventListener('click',()=>{
+            window.location.href = '/frontend/login/loginPage1.html';
+        })
 
     })
     .catch(err=>{

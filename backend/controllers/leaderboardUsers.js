@@ -22,24 +22,30 @@ const leaderboardUsers = (req,res) =>{
             }
         })
         .then(records=>{
-            console.log(records);
+            // console.log('------------------------------------------->'.bgRed);
+            // console.log(records);
             const amounts = records.map(record => record.dataValues.amount);
-            console.log(amounts);
+            // console.log(amounts);
 
-            const totalUserExpenseAmount = amounts.reduce((accum,curr)=>accum + curr);
-
-            userObjs.push({name : userNames[i], expenseAmount : totalUserExpenseAmount})
-
-            if(userids.length-1 === i){
-               console.log(userObjs);
-               return res.json(userObjs);
+            let userTotalAmount = 0;
+            for(let i = 0;i < amounts.length;i++){
+                userTotalAmount += amounts[i];
             }
+
+            userObjs.push({name : userNames[i], expenseAmount : userTotalAmount})
+
+            if(i===userids.length-1){
+                console.log('---------------------------------'.bgGreen);
+                res.json(userObjs);
+                return;
+
+            }
+
         })
         .catch(err=>{
             console.log(err);
+            // res.json(err);
         })
-
-        console.log(userObjs);
     }
     })
 

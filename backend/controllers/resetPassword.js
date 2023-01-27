@@ -6,6 +6,7 @@ const userLoginDetails = require('../models/userLoginDetails');
 
 const resetPssword = (req,res) =>{
     const userEmail = req.body;
+    // console.log(userEmail);
 // using Twilio SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 // javascript
@@ -34,6 +35,7 @@ sgMail
     })
     .then(record=>{
       console.log(record[0].dataValues.id);
+      console.log(record);
 
       const userId = record[0].dataValues.id;
 
